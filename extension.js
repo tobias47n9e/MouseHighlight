@@ -43,9 +43,9 @@ const MouseHighlight = new Lang.Class({
     */
     setup_cnvs_actor: function () {
         let color = new Clutter.Color({
-            red: 255,
-            green: 0,
-            blue: 0,
+            red: 20,
+            green: 20,
+            blue: 20,
             alpha: 128
         });
 
@@ -74,10 +74,14 @@ const MouseHighlight = new Lang.Class({
         cr.setOperator(Cairo.Operator.OVER);
         cr.setLineCap(Cairo.LineCap.ROUND);
         cr.setLineWidth(10);
-
         cr.translate(x, y);
-        cr.arc(0, 0, 5, 0, Math.PI * 2);
-        cr.stroke();
+
+        let gradient = new Cairo.RadialGradient(0, 0, 0, 0, 0, 20);
+        gradient.addColorStopRGBA(0, 1, 1, 0, 1);
+        gradient.addColorStopRGBA(20, 1, 1, 0, 0);
+        cr.setSource(gradient);
+        cr.arc(0, 0, 20, 0, Math.PI * 2);
+        cr.fill();
 
         return draw;
     },
