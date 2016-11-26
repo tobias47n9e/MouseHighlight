@@ -1,0 +1,12 @@
+{
+    "shell-version": [
+        "3.18",
+        "3.20",
+        "3.22"
+    ],
+    "description": "Hightlight the mouse cursor for screencasts",
+    "name": "Mouse Highlight",
+    "uuid": "MouseHighlight@tobias47n9e",
+    "url": "https://github.com/tobias47n9e/MouseHighlight",
+    "version": "0.1"
+}
