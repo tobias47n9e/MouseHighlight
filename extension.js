@@ -7,6 +7,8 @@ const Clutter = imports.gi.Clutter;
 const Mainloop = imports.mainloop;
 const Cairo = imports.cairo;
 
+const debug = false;
+
 let mouse_highlight;
 
 /**
@@ -21,8 +23,6 @@ const MouseHighlight = new Lang.Class({
     */
     _init: function() {
         this.parent(0.0, "MouseHighlight");
-        this.offset = [1000, 500];
-        this.cnvs_size = [200, 200];
 
         this.label = new St.Label({
             text: "Choose Highlighting",
@@ -42,17 +42,27 @@ const MouseHighlight = new Lang.Class({
     * adds it to the main uiGroup. Connects the signals of the actor.
     */
     setup_cnvs_actor: function () {
-        let color = new Clutter.Color({
-            red: 20,
-            green: 20,
-            blue: 20,
-            alpha: 128
-        });
+        let pr_monitor = Main.layoutManager.primaryMonitor;
+        this.offset = [pr_monitor.x, pr_monitor.y];
+        this.cnvs_size = [pr_monitor.width, pr_monitor.height];
+
+        if (debug == true) {
+            let color = new Clutter.Color({
+                red: 0,
+                green: 255,
+                blue: 0,
+                alpha: 30
+            });
+
+            this.cnvs_actor.set_background_color(color);
+
+            this.offset = [1000, 500];
+            this.cnvs_size = [200, 200];
+        }
 
         this.cnvs_actor.set_position(this.offset[0], this.offset[1]);
         this.cnvs_actor.set_width(this.cnvs_size[0]);
         this.cnvs_actor.set_height(this.cnvs_size[1]);
-        this.cnvs_actor.set_background_color(color);
         this.cnvs_actor.show_all();
         this.cnvs_actor.set_reactive(true);
         this.cnvs_actor.connect("motion-event", this.mouse_move.bind(this));
