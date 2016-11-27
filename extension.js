@@ -82,7 +82,6 @@ const MouseHighlight = new Lang.Class({
         cr.setSource(gradient);
         cr.arc(0, 0, 30, 0, Math.PI * 2);
         cr.mask(gradient);
-        cr.restore();
 
         return draw;
     },
