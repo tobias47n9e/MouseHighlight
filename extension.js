@@ -76,12 +76,13 @@ const MouseHighlight = new Lang.Class({
         cr.setLineWidth(10);
         cr.translate(x, y);
 
-        let gradient = new Cairo.RadialGradient(0, 0, 0, 0, 0, 20);
-        gradient.addColorStopRGBA(0, 1, 1, 0, 1);
-        gradient.addColorStopRGBA(20, 1, 1, 0, 0);
+        let gradient = new Cairo.RadialGradient(0, 0, 0, 0, 0, 25);
+        gradient.addColorStopRGBA(0, 1, 1, 1, 1);
+        gradient.addColorStopRGBA(25, 1, 1, 1, 0);
         cr.setSource(gradient);
-        cr.arc(0, 0, 20, 0, Math.PI * 2);
-        cr.fill();
+        cr.arc(0, 0, 30, 0, Math.PI * 2);
+        cr.mask(gradient);
+        cr.restore();
 
         return draw;
     },
