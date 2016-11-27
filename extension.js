@@ -6,6 +6,15 @@ const PanelMenu = imports.ui.panelMenu;
 const Clutter = imports.gi.Clutter;
 const Mainloop = imports.mainloop;
 const Cairo = imports.cairo;
+const Gio = imports.gi.Gio;
+const ExtensionUtils = imports.misc.extensionUtils;
+const Extension = ExtensionUtils.getCurrentExtension();
+
+const mh_icon_default = new Gio.FileIcon({
+    file: Gio.File.new_for_path(Extension.dir.get_child(
+        'icons/icon_default.svg').get_path()
+    )
+});
 
 let mouse_highlight;
 
@@ -24,13 +33,12 @@ const MouseHighlight = new Lang.Class({
         this.offset = [1000, 500];
         this.cnvs_size = [200, 200];
 
-        this.label = new St.Label({
-            text: "Choose Highlighting",
-            y_expand: true,
-            y_align: Clutter.ActorAlign.CENTER
+        this.icon = new St.Icon({
+            gicon: mh_icon_default,
+            icon_size: 16
         });
 
-        this.actor.add_actor(this.label);
+        this.actor.add_actor(this.icon);
 
         this.cnvs_actor = new Clutter.Actor();
 
